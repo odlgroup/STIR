@@ -172,4 +172,7 @@ def test_ProjDataInfo():
     assert sinogram.get_axial_pos_num()==1
     assert sinogram.get_num_views() == projdatainfo.get_num_views()
     assert sinogram.get_proj_data_info() == projdatainfo
+
+if __name__ == '__main__':
+    pytest.main(str(__file__.replace('\\', '/') + ' -v'))
     

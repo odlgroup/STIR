@@ -87,3 +87,6 @@ def test_ProjData():
     seg0=stirextra.to_numpy(projdata.get_segment_by_sinogram(0))
     assert(seg0.max() == 2)
 
+if __name__ == '__main__':
+    pytest.main(str(__file__.replace('\\', '/') + ' -v'))
+    
