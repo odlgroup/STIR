@@ -32,13 +32,9 @@ endif()
 
 if(BUILD_SWIG_PYTHON)
 
-  # find libraries and include files
-  # TODO would be better to use target_include_directories
-
   FIND_PACKAGE(PythonLibs REQUIRED)
-  INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
   FIND_PACKAGE(Numpy REQUIRED)
-  INCLUDE_DIRECTORIES(${NUMPY_INCLUDE_DIRS})
+  INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH} ${PYTHON_NUMPY_INCLUDE_DIR})
   # TODO probably better to call the module stirpy or something
   # TODO -builtin option only appropriate for python
   # while the next statement sets it for all modules called stir
@@ -46,7 +42,7 @@ if(BUILD_SWIG_PYTHON)
   SWIG_ADD_MODULE(stir python stir.i ${STIR_REGISTRIES})
   SWIG_LINK_LIBRARIES(stir ${STIR_LIBRARIES} ${PYTHON_LIBRARIES})
   SET_TARGET_PROPERTIES(${SWIG_MODULE_stir_REAL_NAME} PROPERTIES
-        LINK_FLAGS "${OpenMP_EXE_LINKER_FLAGS}")  
+        LINK_FLAGS "${OpenMP_EXE_LINKER_FLAGS}")
 
   CONFIGURE_FILE(./pyfragments.swg ./ COPYONLY)
 
@@ -90,7 +86,7 @@ if (BUILD_SWIG_OCTAVE)
   SET_TARGET_PROPERTIES(${SWIG_MODULE_stiroct_REAL_NAME} PROPERTIES SUFFIX ${OCTAVE_SUFFIX} PREFIX "${OCTAVE_PREFIX}")
   SWIG_LINK_LIBRARIES(stiroct ${STIR_LIBRARIES} ${OCTAVE_LIBRARIES})
 
-  # add OCTAVE_INCFLAGS to swig-generated file only, not to all files as 
+  # add OCTAVE_INCFLAGS to swig-generated file only, not to all files as
   # 1) we don't need it at the moment 2) we'd need to change from -Ibla to bla
   #INCLUDE_DIRECTORIES(${OCTAVE_INCLUDE_PATH})
   SET_SOURCE_FILES_PROPERTIES( ${swig_generated_file_fullname}
@@ -109,7 +105,7 @@ if (BUILD_SWIG_MATLAB)
   SET_TARGET_PROPERTIES(${SWIG_MODULE_stirMATLAB_REAL_NAME} PROPERTIES
         SUFFIX "_wrap.${MATLAB_MEX_EXT}" PREFIX "${MATLAB_PREFIX}"
         LINK_FLAGS "${MATLAB_CXXLINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}"
-        FOLDER "Matlab")  
+        FOLDER "Matlab")
   SWIG_LINK_LIBRARIES(stirMATLAB ${STIR_LIBRARIES}  ${MATLAB_LIBRARIES})
 
   include_directories(${MATLAB_INCLUDE_DIR})
@@ -122,5 +118,5 @@ if (BUILD_SWIG_MATLAB)
   INSTALL(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/+${module_name} DESTINATION ${MATLAB_DEST})
   file(GLOB SwigMatlabFiles "${CMAKE_CURRENT_BINARY_DIR}/Swig*.m")
   INSTALL(FILES ${SwigMatlabFiles} DESTINATION ${MATLAB_DEST})
-  
+
 endif (BUILD_SWIG_MATLAB)

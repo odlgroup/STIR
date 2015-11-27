@@ -15,7 +15,7 @@
 # TODO: should find npymath core library
 
 find_package(PackageHandleStandardArgs)
-     
+
 # search for the runtime if it's not already set
 if( NOT DEFINED PYTHON_EXECUTABLE )
   FIND_PACKAGE(PythonLibs REQUIRED)
