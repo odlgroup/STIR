@@ -81,3 +81,6 @@ def test_ProjDataInfo(tmpdir):
         for i1,i2 in zip(segment.flat(), segment2.flat()):
             assert abs(i1-i2)<.01
     
+if __name__ == '__main__':
+    pytest.main(str(__file__.replace('\\', '/') + ' -v'))
+    
