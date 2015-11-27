@@ -20,7 +20,7 @@
 #    See STIR/LICENSE.txt for details
 
 from stir import *
-from stirextra import *
+from stir.stirextra import *
 import os
 # for Python2 and itertools.zip->zip (as in Python 3) 
 try:
