@@ -19,9 +19,9 @@
 #
 #    See STIR/LICENSE.txt for details
 
-import py.test
+import pytest
 from stir import *
-# for Python2 and itertools.zip->zip (as in Python 3) 
+# for Python2 and itertools.zip->zip (as in Python 3)
 try:
     import itertools.izip as zip
 except ImportError:
@@ -40,7 +40,7 @@ def test_Array2D():
     np+=2
     a.fill(np.flat)
     assert np[(0,0)]==4
-    
+
 def test_Array2Diterator():
     a=FloatArray2D(IndexRange2D(Int2BasicCoordinate((1,3)), Int2BasicCoordinate((3,9))))
     for i1,i2 in zip(a.flat(), range(a.size_all())):
@@ -76,7 +76,7 @@ def test_ProjData():
     s=Scanner.get_scanner_from_name("ECAT 962")
     #ProjDataInfoCTI(const shared_ptr<Scanner>& scanner_ptr,
     #		  const int span, const int max_delta,
-    #             const int num_views, const int num_tangential_poss, 
+    #             const int num_views, const int num_tangential_poss,
     #
     projdatainfo=ProjDataInfo.ProjDataInfoCTI(s,3,9,8,6)
     #print projdatainfo
@@ -89,4 +89,4 @@ def test_ProjData():
 
 if __name__ == '__main__':
     pytest.main(str(__file__.replace('\\', '/') + ' -v'))
-    
+
