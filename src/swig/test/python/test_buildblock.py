@@ -19,7 +19,7 @@
 #
 #    See STIR/LICENSE.txt for details
 
-import py.test
+import pytest
 from stir import *
 
 def test_Vector():
@@ -38,7 +38,7 @@ def test_Vector():
     dvcopy[2]=4;
     assert dv[2]==dvcopy[2]
 
-    # instead, in Python we need to explicitly create a new object 
+    # instead, in Python we need to explicitly create a new object
     dvcopy=FloatVector(dv)
     dvcopy[2]=dv[2]+2;
     assert dv[2]+2 == dvcopy[2]
@@ -60,7 +60,7 @@ def test_VectorWithOffset():
     v[2]=3
     assert v[2]==3
     #assert v[1]==0 #probably not initialised
-    with py.test.raises(IndexError):
+    with pytest.raises(IndexError):
         v[0] # check index-out-of-range
 
 def test_Array1D():
@@ -161,7 +161,7 @@ def test_ProjDataInfo():
     s=Scanner.get_scanner_from_name("ECAT 962")
     #ProjDataInfoCTI(const shared_ptr<Scanner>& scanner_ptr,
     #		  const int span, const int max_delta,
-    #             const int num_views, const int num_tangential_poss, 
+    #             const int num_views, const int num_tangential_poss,
     #
     projdatainfo=ProjDataInfo.ProjDataInfoCTI(s,3,9,8,6)
     #print projdatainfo
@@ -175,4 +175,3 @@ def test_ProjDataInfo():
 
 if __name__ == '__main__':
     pytest.main(str(__file__.replace('\\', '/') + ' -v'))
-    

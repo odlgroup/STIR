@@ -22,7 +22,9 @@
 from stir import *
 from stir.stirextra import *
 import os
-# for Python2 and itertools.zip->zip (as in Python 3) 
+import pytest
+
+# for Python2 and itertools.zip->zip (as in Python 3)
 try:
     import itertools.izip as zip
 except ImportError:
@@ -40,7 +42,7 @@ def test_FloatVoxelsOnCartesianGrid(tmpdir):
     image[(5,3,4)]=2
     print(image.shape())
     output_format=InterfileOutputFileFormat()
-    output_format.write_to_file("stir_python_test.hv", image) 
+    output_format.write_to_file("stir_python_test.hv", image)
     image2=FloatVoxelsOnCartesianGrid.read_from_file('stir_python_test.hv')
     assert image.get_voxel_size()==image2.get_voxel_size()
     assert image.shape()==image2.shape()
@@ -54,7 +56,7 @@ def test_ProjDataInfo(tmpdir):
     s=Scanner.get_scanner_from_name("ECAT 962")
     #ProjDataInfoCTI(const shared_ptr<Scanner>& scanner_ptr,
     #		  const int span, const int max_delta,
-    #             const int num_views, const int num_tangential_poss, 
+    #             const int num_views, const int num_tangential_poss,
     #
     examinfo=ExamInfo();
     projdatainfo=ProjDataInfo.ProjDataInfoCTI(s,3,6,8,6)
@@ -80,7 +82,7 @@ def test_ProjDataInfo(tmpdir):
         # compare
         for i1,i2 in zip(segment.flat(), segment2.flat()):
             assert abs(i1-i2)<.01
-    
+
 if __name__ == '__main__':
     pytest.main(str(__file__.replace('\\', '/') + ' -v'))
-    
+
