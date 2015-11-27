@@ -52,11 +52,15 @@ install_manifest.txt
 *-blx.bib
 *.run.xml
 
+# build folder
+build/*
 
 # Common editor backups
 ~$*
 *~
 *.bak
+*.swo
+*.swp
 
 # Ignore Visual Studio User-specific files
 *.suo
